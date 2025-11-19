@@ -41,7 +41,15 @@ st.markdown("""
         padding: 5px;
         font-size: 20px; 
     }
-    a {text-decoration: none; color: inherit;}
+    /* Estilo dos links dentro dos cards */
+    .card a {
+        color: #007BFF;
+        text-decoration: none;
+        font-weight: 500;
+    }
+    .card a:hover {
+        text-decoration: underline;
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -114,7 +122,6 @@ translations = {
 t = translations[st.session_state['language']]
 
 # --- BARRA SUPERIOR (BANDEIRAS) ---
-# Layout: Espaço vazio (7 partes) + 3 colunas para botões (1 parte cada)
 col_spacer, col_br, col_en, col_es = st.columns([7, 1, 1, 1])
 
 with col_br:
@@ -147,10 +154,10 @@ with col2:
     st.markdown(f'<div class="sub-header">{t["role"]}</div>', unsafe_allow_html=True)
     st.write(t['bio'])
     
-    # Ícones de Redes Sociais
+    # Ícones de Redes Sociais (Links corrigidos para HTML puro)
     st.markdown("""
-    <a href="https://www.linkedin.com/in/douglas-onorio-584766173/" target="_blank">🔗 LinkedIn</a> • 
-    <a href="https://github.com/douglas-onorio" target="_blank">💻 GitHub</a>
+    <a href="https://www.linkedin.com/in/douglas-onorio-584766173/" target="_blank" style="text-decoration:none; color:#0077b5; font-weight:bold;">🔗 LinkedIn</a> • 
+    <a href="https://github.com/douglas-onorio" target="_blank" style="text-decoration:none; color:#333; font-weight:bold;">💻 GitHub</a>
     """, unsafe_allow_html=True)
 
 st.markdown("---")
@@ -159,13 +166,18 @@ st.markdown("---")
 def project_card(title, desc, techs, app_link, repo_link, icon="🚀"):
     tech_html = "".join([f'<span class="tech-tag">{tech}</span>' for tech in techs])
     
-    # Botões traduzidos
+    # Textos traduzidos
     txt_app = t['btn_app']
     txt_repo = t['btn_repo']
     txt_desk = t['btn_desktop']
 
-    btn_app_html = f'[**{txt_app}**]({app_link})' if app_link else f"*{txt_desk}*"
-    btn_repo_html = f'[{txt_repo}]({repo_link})'
+    # Construção dos Links usando HTML (<a href>) em vez de Markdown ([])
+    if app_link:
+        btn_app_html = f'<a href="{app_link}" target="_blank"><strong>{txt_app}</strong></a>'
+    else:
+        btn_app_html = f'<span style="color:#666; font-style:italic;">{txt_desk}</span>'
+        
+    btn_repo_html = f'<a href="{repo_link}" target="_blank">{txt_repo}</a>'
     
     st.markdown(f"""
     <div class="card">
