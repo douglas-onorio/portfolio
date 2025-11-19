@@ -1,5 +1,4 @@
 import streamlit as st
-from PIL import Image
 
 # --- CONFIGURAÇÃO DA PÁGINA ---
 st.set_page_config(
@@ -36,16 +35,11 @@ st.markdown("""
         margin-right: 5px;
         margin-bottom: 5px;
     }
-    /* Estilo para os botões de bandeira ficarem alinhados e bonitos */
+    /* Ajuste para botões de idioma */
     .stButton button {
-        background: none;
-        border: none;
-        font-size: 20px;
-        padding: 0px 10px;
-    }
-    .stButton button:hover {
-        background: #f0f2f6;
-        border-radius: 5px;
+        width: 100%;
+        padding: 5px;
+        font-size: 20px; 
     }
     a {text-decoration: none; color: inherit;}
     </style>
@@ -58,7 +52,7 @@ if 'language' not in st.session_state:
 def set_language(lang):
     st.session_state['language'] = lang
 
-# --- DICIONÁRIO DE TEXTOS (TRADUÇÕES) ---
+# --- DICIONÁRIO DE TEXTOS (TRADUÇÕES: PT / EN / ES) ---
 translations = {
     'pt': {
         'role': 'Desenvolvedor Python & Soluções de Dados',
@@ -95,6 +89,24 @@ translations = {
         'p2_desc': 'Migration from legacy VBA to Web App. Interactive dashboard for Full Fulfillment inventory management. Processes large data volumes, simulates stock replenishment, and manages multiple companies simultaneously.',
         'p3_title': 'Curve A - Price Scraper',
         'p3_desc': 'Desktop Application with GUI for competitor monitoring. Automatically collects prices, visits, and seller data, featuring humanized behavior to avoid IP blocking.',
+    },
+    'es': {
+        'role': 'Desarrollador Python & Soluciones de Datos',
+        'bio': """Especialista en transformar procesos manuales complejos en aplicaciones web inteligentes y automatizadas. 
+                  Enfoque en **Python, Análisis de Datos y Automatización de E-commerce (Mercado Libre)**. 
+                  A continuación, presento algunas soluciones que desarrollé para resolver problemas reales de negocio.""",
+        'section_title': '🛠️ Proyectos Destacados',
+        'footer': '© 2025 Douglas Onorio. Desarrollado con Streamlit.',
+        'btn_app': '👉 Ver App Online',
+        'btn_repo': '📂 Ver Código',
+        'btn_desktop': 'App de Escritorio/Offline',
+        # Proyectos
+        'p1_title': 'Auditoría Financiera Mercado Libre',
+        'p1_desc': 'Sistema completo para auditar ventas de ML. Calcula márgenes reales, integra costos vía Google Sheets API y posee un algoritmo complejo para el prorrateo de "Paquetes" (Bundles), exportando informes en Excel con fórmulas.',
+        'p2_title': 'Dashboard de Inventario Full',
+        'p2_desc': 'Migración de legado VBA a Web App. Tablero interactivo para gestión de inventario Full Fulfillment. Procesa grandes volúmenes de datos, simula reposición de stock y gestiona múltiples empresas simultáneamente.',
+        'p3_title': 'Curva A - Scraper de Precios',
+        'p3_desc': 'Aplicación de Escritorio con interfaz gráfica para monitoreo de competencia. Recolecta precios, visitas y datos de vendedores automáticamente, con comportamiento humanizado para evitar bloqueos.',
     }
 }
 
@@ -102,17 +114,22 @@ translations = {
 t = translations[st.session_state['language']]
 
 # --- BARRA SUPERIOR (BANDEIRAS) ---
-# Usamos colunas para jogar as bandeiras para a direita
-col_spacer, col_br, col_en = st.columns([8, 1, 1])
+# Layout: Espaço vazio (7 partes) + 3 colunas para botões (1 parte cada)
+col_spacer, col_br, col_en, col_es = st.columns([7, 1, 1, 1])
 
 with col_br:
-    if st.button("🇧🇷"):
+    if st.button("🇧🇷", key='pt_btn', help="Português"):
         set_language('pt')
         st.rerun()
 
 with col_en:
-    if st.button("🇺🇸"):
+    if st.button("🇺🇸", key='en_btn', help="English"):
         set_language('en')
+        st.rerun()
+
+with col_es:
+    if st.button("🇪🇸", key='es_btn', help="Español"):
+        set_language('es')
         st.rerun()
 
 # --- CABEÇALHO E BIO ---
