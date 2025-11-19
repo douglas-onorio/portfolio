@@ -217,7 +217,7 @@ project_card(
     desc=t['p3_desc'],
     techs=["Python", "Web Scraping", "Playwright", "Tkinter", "Automation"],
     app_link=None, # App Desktop
-    repo_link="https://github.com/douglas-onorio/app-curva-a",
+    repo_link="https://github.com/douglas-onorio/Curva-A---ML",
     icon="🕷️"
 )
 
