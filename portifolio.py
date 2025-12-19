@@ -1,4 +1,5 @@
 import streamlit as st
+import requests
 
 # --- CONFIGURAÇÃO DA PÁGINA ---
 st.set_page_config(
