@@ -219,25 +219,20 @@ def project_card(title, desc, techs, app_link, repo_link, icon="🚀"):
     # Construção dos Links
     if app_link:
         btn_app_html = f'<a href="{app_link}" target="_blank"><strong>{txt_app}</strong></a>'
-        # Se tem App e é Privado, usamos o separador de quebra de linha ou espaço, 
-        # mas aqui vou colocar lado a lado para ficar mais limpo se couber.
         separator = "&nbsp;&nbsp;" 
     else:
-        # Sem App Link
         if repo_link:
              btn_app_html = f'<span style="color:#666; font-style:italic;">{txt_desk}</span>'
              separator = "&nbsp;|&nbsp;"
         else:
-             btn_app_html = "" # Projeto totalmente interno (sem link nenhum)
+             btn_app_html = "" 
              separator = ""
         
     # Lógica para Repositório Privado vs Público
     if repo_link:
         btn_repo_html = f'<a href="{repo_link}" target="_blank">{txt_repo}</a>'
     else:
-        # Badge de Privado
         btn_repo_html = f'<span class="internal-badge">{lbl_priv}</span>'
-        # Se tiver botão do App, quebra linha para o badge não ficar "colado"
         if app_link:
             separator = "<br><br>" 
 
@@ -253,17 +248,15 @@ def project_card(title, desc, techs, app_link, repo_link, icon="🚀"):
 # --- LISTA DE PROJETOS ---
 st.subheader(t['section_title'])
 
-# Projeto 1: Auditoria (Atualizado: Link Novo e Código Privado)
 project_card(
     title=t['p1_title'],
     desc=t['p1_desc'],
     techs=["Python", "Streamlit", "Pandas", "Google Sheets API", "XlsxWriter"],
     app_link="https://auditoria-financeira-mercadolivre.streamlit.app/",
-    repo_link=None, # Definido como None (Privado)
+    repo_link=None, 
     icon="💰"
 )
 
-# Projeto 2: Análise Full
 project_card(
     title=t['p2_title'],
     desc=t['p2_desc'],
@@ -273,7 +266,6 @@ project_card(
     icon="📦"
 )
 
-# Projeto 3: Curva A (Scraper)
 project_card(
     title=t['p3_title'],
     desc=t['p3_desc'],
@@ -283,11 +275,9 @@ project_card(
     icon="🕷️"
 )
 
-# --- LISTA DE PROJETOS INTERNOS ---
 st.markdown("<br>", unsafe_allow_html=True)
 st.subheader(t['section_internal'])
 
-# Projeto 4: Vendas ao Vivo
 project_card(
     title=t['p4_title'],
     desc=t['p4_desc'],
@@ -297,7 +287,6 @@ project_card(
     icon="📈"
 )
 
-# Projeto 5: Orquestrador de Agentes
 project_card(
     title=t['p5_title'],
     desc=t['p5_desc'],
@@ -307,7 +296,6 @@ project_card(
     icon="🤖"
 )
 
-# Projeto 6: Cérebro Gemini
 project_card(
     title=t['p6_title'],
     desc=t['p6_desc'],
@@ -320,7 +308,7 @@ project_card(
 st.markdown("---")
 st.caption(t['footer'])
 
-# --- SEÇÃO DE CONTATO ---
+# --- SEÇÃO DE CONTATO (COM DEBUG) ---
 st.markdown("---")
 st.subheader("📬 Entre em Contato")
 
@@ -341,25 +329,36 @@ with contact_form:
         if not name or not email or not message:
             st.warning("Por favor, preencha todos os campos.")
         else:
-            # Integração com FormSubmit.co
-            webhook_url = f"https://formsubmit.co/{st.secrets['emails']['contact_email']}"
-            
-            data = {
-                "name": name,
-                "email": email,
-                "message": message,
-                "_captcha": "false",  # Desabilita o captcha chato
-                "_template": "table", # Formato bonitinho no email
-                "_subject": f"Novo contato Portfólio: {name}" # Assunto do email
-            }
-            
             try:
+                # --- ÁREA DE DEBUG INICIO ---
+                # Recupera o email dos secrets e mostra na tela
+                target_email = st.secrets['emails']['contact_email']
+                st.info(f"🐛 DEBUG: O e-mail configurado nos Secrets é: {target_email}")
+                # ----------------------------
+
+                webhook_url = f"https://formsubmit.co/{target_email}"
+                
+                data = {
+                    "name": name,
+                    "email": email,
+                    "message": message,
+                    "_captcha": "false",
+                    "_template": "table",
+                    "_subject": f"Novo contato Portfólio: {name}"
+                }
+                
                 response = requests.post(webhook_url, data=data)
                 
+                # Mostra o status da requisição
                 if response.status_code == 200:
                     st.success("Mensagem enviada com sucesso! Em breve entrarei em contato.")
                     st.balloons()
                 else:
-                    st.error("Ocorreu um erro ao enviar. Tente novamente mais tarde.")
+                    st.error(f"Erro no envio. Código: {response.status_code}")
+                    # Mostra a mensagem de erro do servidor
+                    st.write(f"Resposta do Servidor: {response.text}")
+                    
+            except KeyError:
+                st.error("ERRO CRÍTICO: Não encontrei a chave [emails] contact_email nos Secrets.")
             except Exception as e:
                 st.error(f"Erro de conexão: {e}")
