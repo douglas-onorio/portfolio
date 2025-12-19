@@ -77,13 +77,13 @@ translations = {
         'bio': """Especialista em transformar processos manuais complexos em aplicações web inteligentes e automatizadas. 
                   Foco em **Python, Análise de Dados e Automação de E-commerce (Mercado Livre)**. 
                   Abaixo estão algumas das soluções que desenvolvi para resolver problemas reais de negócio.""",
-        'section_title': '🛠️ Projetos Open Source',
+        'section_title': '🛠️ Projetos Principais',
         'section_internal': '🔒 Soluções Internas / Corporativas',
         'footer': '© 2025 Douglas Onorio. Desenvolvido com Streamlit.',
         'btn_app': '👉 Ver App Online',
         'btn_repo': '📂 Ver Código',
         'btn_desktop': 'App Desktop/Offline',
-        'lbl_private': '🔒 Projeto Privado (Uso Interno)',
+        'lbl_private': '🔒 Código Privado / Interno',
         
         # Projetos Públicos
         'p1_title': 'Auditoria Financeira Mercado Livre',
@@ -106,13 +106,13 @@ translations = {
         'bio': """Specialist in transforming complex manual processes into intelligent, automated web applications. 
                   Focus on **Python, Data Analysis, and E-commerce Automation (Mercado Livre)**. 
                   Below are some of the solutions I developed to solve real business problems.""",
-        'section_title': '🛠️ Open Source Projects',
+        'section_title': '🛠️ Main Projects',
         'section_internal': '🔒 Internal / Corporate Solutions',
         'footer': '© 2025 Douglas Onorio. Built with Streamlit.',
         'btn_app': '👉 View Live App',
         'btn_repo': '📂 View Code',
         'btn_desktop': 'Desktop App/Offline',
-        'lbl_private': '🔒 Private Project (Internal Use)',
+        'lbl_private': '🔒 Private Code / Internal',
 
         # Public Projects
         'p1_title': 'Mercado Livre Financial Audit',
@@ -135,13 +135,13 @@ translations = {
         'bio': """Especialista en transformar procesos manuales complejos en aplicaciones web inteligentes y automatizadas. 
                   Enfoque en **Python, Análisis de Datos y Automatización de E-commerce (Mercado Libre)**. 
                   A continuación, presento algunas soluciones que desarrollé para resolver problemas reales de negocio.""",
-        'section_title': '🛠️ Proyectos Open Source',
+        'section_title': '🛠️ Proyectos Principales',
         'section_internal': '🔒 Soluciones Internas / Corporativas',
         'footer': '© 2025 Douglas Onorio. Desarrollado con Streamlit.',
         'btn_app': '👉 Ver App Online',
         'btn_repo': '📂 Ver Código',
         'btn_desktop': 'App de Escritorio/Offline',
-        'lbl_private': '🔒 Proyecto Privado (Uso Interno)',
+        'lbl_private': '🔒 Código Privado / Interno',
 
         # Public Projects
         'p1_title': 'Auditoría Financiera Mercado Libre',
@@ -218,20 +218,27 @@ def project_card(title, desc, techs, app_link, repo_link, icon="🚀"):
     # Construção dos Links
     if app_link:
         btn_app_html = f'<a href="{app_link}" target="_blank"><strong>{txt_app}</strong></a>'
+        # Se tem App e é Privado, usamos o separador de quebra de linha ou espaço, 
+        # mas aqui vou colocar lado a lado para ficar mais limpo se couber.
+        separator = "&nbsp;&nbsp;" 
     else:
-        # Se não tiver link do App, verifica se é desktop ou interno
-        if repo_link is None:
-             btn_app_html = "" # Não exibe nada no lugar do App link se for interno puro
-        else:
+        # Sem App Link
+        if repo_link:
              btn_app_html = f'<span style="color:#666; font-style:italic;">{txt_desk}</span>'
+             separator = "&nbsp;|&nbsp;"
+        else:
+             btn_app_html = "" # Projeto totalmente interno (sem link nenhum)
+             separator = ""
         
     # Lógica para Repositório Privado vs Público
     if repo_link:
         btn_repo_html = f'<a href="{repo_link}" target="_blank">{txt_repo}</a>'
-        separator = "&nbsp;|&nbsp;" if btn_app_html else ""
     else:
+        # Badge de Privado
         btn_repo_html = f'<span class="internal-badge">{lbl_priv}</span>'
-        separator = "<br><br>" # Quebra de linha para ficar bonito se for interno
+        # Se tiver botão do App, quebra linha para o badge não ficar "colado"
+        if app_link:
+            separator = "<br><br>" 
 
     st.markdown(f"""
     <div class="card">
@@ -242,16 +249,16 @@ def project_card(title, desc, techs, app_link, repo_link, icon="🚀"):
     </div>
     """, unsafe_allow_html=True)
 
-# --- LISTA DE PROJETOS OPEN SOURCE ---
+# --- LISTA DE PROJETOS ---
 st.subheader(t['section_title'])
 
-# Projeto 1: Auditoria
+# Projeto 1: Auditoria (Atualizado: Link Novo e Código Privado)
 project_card(
     title=t['p1_title'],
     desc=t['p1_desc'],
     techs=["Python", "Streamlit", "Pandas", "Google Sheets API", "XlsxWriter"],
-    app_link="https://auditoria-mercadolivre.streamlit.app/",
-    repo_link="https://github.com/douglas-onorio/Auditoria-Mercado-Livre",
+    app_link="https://auditoria-financeira-mercadolivre.streamlit.app/",
+    repo_link=None, # Definido como None (Privado)
     icon="💰"
 )
 
@@ -285,7 +292,7 @@ project_card(
     desc=t['p4_desc'],
     techs=["Streamlit", "Playwright", "RegEx (JSON Extract)", "Matplotlib", "Data Visualization"],
     app_link=None,
-    repo_link=None, # Define como Privado
+    repo_link=None, 
     icon="📈"
 )
 
@@ -295,7 +302,7 @@ project_card(
     desc=t['p5_desc'],
     techs=["Python", "Streamlit", "Subprocess Management", "Cookies/Auth", "Multi-Tenancy"],
     app_link=None,
-    repo_link=None, # Define como Privado
+    repo_link=None, 
     icon="🤖"
 )
 
@@ -305,7 +312,7 @@ project_card(
     desc=t['p6_desc'],
     techs=["Google Gemini API", "LLM Integration", "JSON", "Prompt Engineering", "Python Backend"],
     app_link=None,
-    repo_link=None, # Define como Privado
+    repo_link=None, 
     icon="🧠"
 )
 
