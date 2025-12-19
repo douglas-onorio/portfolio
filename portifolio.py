@@ -158,7 +158,7 @@ translations = {
         'p5_title': 'Orquestador de Agentes SAC (Multi-Cuenta)',
         'p5_desc': 'Panel de control centralizado para gestión de bots de atención. Gestiona múltiples tiendas/sesiones simultáneamente, lanzando workers en segundo plano para responder preguntas sin bloquear la interfaz.',
         'p6_title': 'Cerebro IA (Integración Gemini API)',
-        'p6_desc': 'Backend de inteligencia artificial para E-commerce. Utiliza Google Gemini para generar respuestas contextualizadas por producto, aplicando firmas dinámicas y reglas de negocio específicas para cada una de las 8 tiendas.',
+        'p6_desc': 'Backend de inteligencia artificial para E-commerce. Utiliza Google Gemini para gerar respuestas contextualizadas por producto, aplicando firmas dinámicas y reglas de negocio específicas para cada una de las 8 tiendas.',
     }
 }
 
@@ -308,7 +308,7 @@ project_card(
 st.markdown("---")
 st.caption(t['footer'])
 
-# --- SEÇÃO DE CONTATO (COM DEBUG) ---
+# --- SEÇÃO DE CONTATO ---
 st.markdown("---")
 st.subheader("📬 Entre em Contato")
 
@@ -330,13 +330,8 @@ with contact_form:
             st.warning("Por favor, preencha todos os campos.")
         else:
             try:
-                # --- ÁREA DE DEBUG INICIO ---
-                # Recupera o email dos secrets e mostra na tela
-                target_email = st.secrets['emails']['contact_email']
-                st.info(f"🐛 DEBUG: O e-mail configurado nos Secrets é: {target_email}")
-                # ----------------------------
-
-                webhook_url = f"https://formsubmit.co/{target_email}"
+                # Busca o email dos Secrets de forma segura
+                webhook_url = f"https://formsubmit.co/{st.secrets['emails']['contact_email']}"
                 
                 data = {
                     "name": name,
@@ -349,16 +344,11 @@ with contact_form:
                 
                 response = requests.post(webhook_url, data=data)
                 
-                # Mostra o status da requisição
                 if response.status_code == 200:
                     st.success("Mensagem enviada com sucesso! Em breve entrarei em contato.")
                     st.balloons()
                 else:
-                    st.error(f"Erro no envio. Código: {response.status_code}")
-                    # Mostra a mensagem de erro do servidor
-                    st.write(f"Resposta do Servidor: {response.text}")
+                    st.error("Ocorreu um erro ao enviar. Tente novamente mais tarde.")
                     
-            except KeyError:
-                st.error("ERRO CRÍTICO: Não encontrei a chave [emails] contact_email nos Secrets.")
             except Exception as e:
-                st.error(f"Erro de conexão: {e}")
+                st.error("Erro de configuração. Tente contatar via LinkedIn.")
