@@ -318,3 +318,47 @@ project_card(
 
 st.markdown("---")
 st.caption(t['footer'])
+
+# --- SEÇÃO DE CONTATO ---
+st.markdown("---")
+st.subheader("📬 Entre em Contato")
+
+contact_form = st.form(key='contact_form')
+
+with contact_form:
+    col_name, col_email = st.columns(2)
+    with col_name:
+        name = st.text_input("Nome")
+    with col_email:
+        email = st.text_input("E-mail")
+    
+    message = st.text_area("Mensagem")
+    
+    submit_button = st.form_submit_button(label='Enviar Mensagem')
+
+    if submit_button:
+        if not name or not email or not message:
+            st.warning("Por favor, preencha todos os campos.")
+        else:
+            # Integração com FormSubmit.co
+            webhook_url = "https://formsubmit.co/SEU_EMAIL_AQUI@GMAIL.COM" # <--- Mude seu email aqui
+            
+            data = {
+                "name": name,
+                "email": email,
+                "message": message,
+                "_captcha": "false",  # Desabilita o captcha chato
+                "_template": "table", # Formato bonitinho no email
+                "_subject": f"Novo contato Portfólio: {name}" # Assunto do email
+            }
+            
+            try:
+                response = requests.post(webhook_url, data=data)
+                
+                if response.status_code == 200:
+                    st.success("Mensagem enviada com sucesso! Em breve entrarei em contato.")
+                    st.balloons()
+                else:
+                    st.error("Ocorreu um erro ao enviar. Tente novamente mais tarde.")
+            except Exception as e:
+                st.error(f"Erro de conexão: {e}")
