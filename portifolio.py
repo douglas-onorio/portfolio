@@ -87,8 +87,8 @@ translations = {
         'lbl_private': '🔒 Código Privado / Interno',
         
         # Projetos Públicos
-        'p1_title': 'Auditoria Financeira Mercado Livre',
-        'p1_desc': 'Sistema completo para auditar vendas do ML. Realiza cálculo de margem real, integra com API do Google Sheets para custos e possui algoritmo complexo para rateio de "Pacotes" (Bundles), exportando relatórios Excel com fórmulas.',
+        'p1_title': 'Auditoria Financeira ML (v2.0)',
+        'p1_desc': 'Sistema corporativo com **Login Seguro**. Audita custos de **Publicidade (ACOS)**, margem real e integra via Google Sheets. Possui algoritmo avançado para rateio de "Bundles" e exporta Excel com fórmulas nativas, cores de alerta e aba de ajuda.',
         'p2_title': 'Dashboard de Estoque Full',
         'p2_desc': 'Migração de legado VBA para Web App. Dashboard interativo para gestão de estoque Full Fulfillment. Processa grandes volumes de dados, simula reposição de estoque e gerencia múltiplas empresas simultaneamente.',
         'p3_title': 'Curva A - Scraper de Preços',
@@ -116,8 +116,8 @@ translations = {
         'lbl_private': '🔒 Private Code / Internal',
 
         # Public Projects
-        'p1_title': 'Mercado Livre Financial Audit',
-        'p1_desc': 'Complete system for auditing ML sales. Calculates real profit margins, integrates with Google Sheets API for costs, and features a complex algorithm for "Bundles" allocation, exporting Excel reports with live formulas.',
+        'p1_title': 'ML Financial Audit (v2.0)',
+        'p1_desc': 'Corporate system with **Secure Login**. Audits **Ads costs (ACOS)**, real margin, and integrates with Google Sheets. Features advanced algorithm for "Bundles" allocation and exports Excel with live formulas, alert colors, and help tab.',
         'p2_title': 'Full Fulfillment Inventory Dashboard',
         'p2_desc': 'Migration from legacy VBA to Web App. Interactive dashboard for Full Fulfillment inventory management. Processes large data volumes, simulates stock replenishment, and manages multiple companies simultaneously.',
         'p3_title': 'Curve A - Price Scraper',
@@ -145,10 +145,10 @@ translations = {
         'lbl_private': '🔒 Código Privado / Interno',
 
         # Public Projects
-        'p1_title': 'Auditoría Financiera Mercado Libre',
-        'p1_desc': 'Sistema completo para auditar ventas de ML. Calcula márgenes reales, integra costos vía Google Sheets API y posee un algoritmo complejo para el prorrateo de "Paquetes" (Bundles), exportando informes en Excel con fórmulas.',
+        'p1_title': 'Auditoría Financiera ML (v2.0)',
+        'p1_desc': 'Sistema corporativo con **Login Seguro**. Audita costos de **Publicidad (ACOS)**, margen real e integra con Google Sheets. Posee algoritmo avanzado para prorrateo de "Bundles" y exporta Excel con fórmulas nativas, colores de alerta y pestaña de ayuda.',
         'p2_title': 'Dashboard de Inventario Full',
-        'p2_desc': 'Migración de legado VBA a Web App. Tablero interactivo para gestión de inventario Full Fulfillment. Procesa grandes volúmenes de datos, simula reposición de stock y gestiona múltiples empresas simultáneamente.',
+        'p2_desc': 'Migración de legado VBA a Web App. Tablero interactivo para gestión de inventario Full Fulfillment. Procesa grandes volúmenes de datos, simula reposición de stock y gestiona múltiples empresas simultaneamente.',
         'p3_title': 'Curva A - Scraper de Precios',
         'p3_desc': 'Aplicación de Escritorio con interfaz gráfica para monitoreo de competencia. Recolecta precios, visitas y datos de vendedores automáticamente, con comportamiento humanizado para evitar bloqueos.',
 
