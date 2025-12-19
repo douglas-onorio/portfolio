@@ -342,7 +342,7 @@ with contact_form:
             st.warning("Por favor, preencha todos os campos.")
         else:
             # Integração com FormSubmit.co
-            webhook_url = "https://formsubmit.co/SEU_EMAIL_AQUI@GMAIL.COM" # <--- Mude seu email aqui
+            webhook_url = "https://formsubmit.co/dgls.snts@GMAIL.COM"
             
             data = {
                 "name": name,
